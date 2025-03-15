@@ -1,0 +1,17 @@
+cmake_minimum_required(VERSION 3.29)
+
+project(game_of_life LANGUAGES CXX)
+
+# Стандарт C++
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+# Исполняемый файл с указанием исходных файлов
+add_executable(game_of_life 
+			src/main.cpp
+			src/gameConfigReader.cpp
+			src/gameState.cpp
+			src/gameView.cpp 
+			src/mainProcess.cpp 
+			src/stateProcessor.cpp)
+
