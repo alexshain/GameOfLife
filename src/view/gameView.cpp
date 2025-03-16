@@ -1,18 +1,25 @@
-#include "../include/gameView.h"
+#include "../../include/view/gameView.h"
 #include <iostream>
 #include <algorithm>
 
 using game_state::AliveCells;
 using game_state::Cell;
 
-namespace game_view {
-    void GameView::show(const GameState& state) const {
+namespace view {
+    GameView::GameView(StateProcessor* state_processor) {
+        state_processor_ = state_processor;
+        state_processor_->addObserver(this);
+    }
+
+    void GameView::update() {
+        clearScreen();
+        GameState state = state_processor_->getState();
         int Nx = state.getFieldSize().Nx;
         int Ny = state.getFieldSize().Ny;
 
         std::cout << "--------- " << state.getUniverseName() << " ---------" << std::endl;
 
-        AliveCells a_cells = state.getCellsState();
+        AliveCells a_cells = state.getAliveCells();
         for(int i = - Ny / 2; i < Ny / 2; ++i) {
             for(int j = - Nx / 2; j < Nx / 2; ++j) {
                 Cell c;
@@ -28,7 +35,7 @@ namespace game_view {
         }
     }
 
-    void GameView::clearScreen() const {
+    void GameView::clearScreen() {
         std::cout << "\033[2J\033[H";
     }
 }

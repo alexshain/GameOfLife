@@ -4,9 +4,9 @@
 #include <filesystem>
 #include <sstream>
 #include <string>
-#include "gameState.h"
-#include "stateProcessor.h"
-#include "gameView.h"
+#include "model/gameState.h"
+#include "controller/gameController.h"
+#include "view/gameView.h"
 
 using st_prcsr::EvolutionConditions;
 using game_state::Cell;

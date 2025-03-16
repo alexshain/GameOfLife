@@ -22,14 +22,14 @@ namespace game_state {
 
     class GameState {
     private:
-        AliveCells cells_state_;
+        AliveCells alive_cells_;
         std::string universe_name_;
         FieldSize f_sz_;
 
     public:
-        GameState(const AliveCells& inition_state, const std::string& universe_name, FieldSize f_sz);
-        void setNextState(const AliveCells& next_state);
-        AliveCells getCellsState() const;
+        GameState(const AliveCells& alive_cells, const std::string& universe_name, FieldSize f_sz);
+        void setAliveCells(const AliveCells& new_alive_cells);
+        AliveCells getAliveCells() const;
         std::string getUniverseName() const;
         FieldSize getFieldSize() const;
     };
