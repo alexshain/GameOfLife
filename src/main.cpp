@@ -1,7 +1,14 @@
 //посмотреть, можно ли избежать этого двоеточия
-#include "../include/mainProcess.h"
+#include "../include/controller/gameController.h"
+#include "../include/model/stateProcessor.h"
+#include "../include/view/gameView.h"
+
+using view::GameView;
 
 int main() {
-    start();
+    StateProcessor processor;
+    GameView view(&processor);
+    GameController controller(&processor);
+    controller.start();
     return 0;
 }

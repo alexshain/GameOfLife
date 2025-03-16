@@ -10,8 +10,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 add_executable(game_of_life 
 			src/main.cpp
 			src/gameConfigReader.cpp
-			src/gameState.cpp
-			src/gameView.cpp 
-			src/mainProcess.cpp 
-			src/stateProcessor.cpp)
+			src/model/gameState.cpp
+			src/model/stateProcessor.cpp
+			src/view/gameView.cpp 
+			src/controller/gameController.cpp)
 
