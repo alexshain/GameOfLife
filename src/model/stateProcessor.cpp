@@ -1,14 +1,22 @@
 #include "../../include/model/stateProcessor.h"
 #include <iostream>
+#include <string>
 
 using game_state::AliveCells;
+using game_state::FieldSize;
 
 namespace st_prcsr {
-        void StateProcessor::process() {
-        int Nx = state_->getFieldSize().Nx;
-        int Ny = state_->getFieldSize().Ny;
+    StateProcessor::StateProcessor() {
+        setDefaultState();
+        conditions_.birth_condition = {2};
+        conditions_.survival_condition = {2, 3};
+    }
 
-        AliveCells a_cells = state_->getAliveCells();
+    void StateProcessor::process() {
+        int Nx = state_.getFieldSize().Nx;
+        int Ny = state_.getFieldSize().Ny;
+
+        AliveCells a_cells = state_.getAliveCells();
         AliveCells new_alive_cells;
         Cell c;
         for(int i = - Ny / 2; i < Ny / 2; ++i) {
@@ -30,15 +38,15 @@ namespace st_prcsr {
 
         std::cout << new_alive_cells.size() << std::endl;
 
-        state_->setAliveCells(new_alive_cells);
+        state_.setAliveCells(new_alive_cells);
         notifyUpdate();
     }
 
     int StateProcessor::getNeighborCount(Cell current_cell) {
-        int Nx = state_->getFieldSize().Nx;
-        int Ny = state_->getFieldSize().Ny;
+        int Nx = state_.getFieldSize().Nx;
+        int Ny = state_.getFieldSize().Ny;
         int count = 0;
-        AliveCells a_cells = state_->getAliveCells();
+        AliveCells a_cells = state_.getAliveCells();
         Cell c;
         for(int i = current_cell.y - 1; i <= current_cell.y + 1; ++i) {
             for(int j = current_cell.x - 1; j <= current_cell.x + 1; ++j) {
@@ -66,7 +74,17 @@ namespace st_prcsr {
         return count;
     }
 
-    void StateProcessor::setState(GameState* state) {
+    void StateProcessor::setDefaultState() {
+        FieldSize f_sz;
+        f_sz.Nx = 10;
+        f_sz.Ny = 10;
+
+        AliveCells a_cells{{0, -1}, {1, 0}, {-1, 1}, {0, 1}, {1, 1}};
+        std::string universe_name = "Glider (default)";
+        state_ = GameState(a_cells, universe_name, f_sz);
+    }
+
+    void StateProcessor::setState(GameState state) {
         state_ = state;
     }
 
@@ -75,6 +93,6 @@ namespace st_prcsr {
     }
 
     GameState StateProcessor::getState() const {
-        return *state_;
+        return state_;
     }
 }

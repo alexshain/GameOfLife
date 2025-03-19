@@ -21,7 +21,7 @@ private:
     std::string universe_name_;
 
 public:
-    void readFile(std::filesystem::path file_path);
+    bool readFile(std::filesystem::path file_path);
     EvolutionConditions getEvolutionConditions() const;
     AliveCells getAliveCells() const;
     FieldSize getFieldSize() const;

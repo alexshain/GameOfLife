@@ -5,11 +5,11 @@
 #include <vector>
 #include <string>
 
-void GameConfigReader::readFile(std::filesystem::path file_path) {
+bool GameConfigReader::readFile(std::filesystem::path file_path) {
     std::ifstream file(file_path);
 
     if(!file.is_open()) {
-        throw std::runtime_error("Failed to open file " + file_path.string());
+        return false;
     }
 
     std::string line;
@@ -20,6 +20,7 @@ void GameConfigReader::readFile(std::filesystem::path file_path) {
         std::vector<std::string> words = split(line, ' ');
         lineProcessor(words);
     }
+    return true;
 }
 
 std::vector<std::string> GameConfigReader::split(const std::string& str, char delimiter) {
