@@ -2,13 +2,14 @@
 #include "../include/controller/gameController.h"
 #include "../include/model/stateProcessor.h"
 #include "../include/view/gameView.h"
+#include <iostream>
 
 using view::GameView;
 
-int main() {
+int main(int argc, char* argv[]) {
     StateProcessor processor;
     GameView view(&processor);
-    GameController controller(&processor);
+    GameController controller(&processor, argc, argv);
     controller.start();
     return 0;
 }

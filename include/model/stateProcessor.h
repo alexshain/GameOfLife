@@ -33,16 +33,18 @@ namespace st_prcsr {
 
     class StateProcessor: public Observable {
     private:
-        GameState* state_;
+        GameState state_;
         EvolutionConditions conditions_;
 
     public:
-        void setState(GameState* state);
+        StateProcessor();
+        void setState(GameState state);
         void setEvolutionConditions(EvolutionConditions conditions);
         GameState getState() const;
         void process();
 
     private:
+        void setDefaultState();
         int getNeighborCount(Cell cell);
     };
 }

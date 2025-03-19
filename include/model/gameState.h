@@ -27,6 +27,7 @@ namespace game_state {
         FieldSize f_sz_;
 
     public:
+        GameState() = default;
         GameState(const AliveCells& alive_cells, const std::string& universe_name, FieldSize f_sz);
         void setAliveCells(const AliveCells& new_alive_cells);
         AliveCells getAliveCells() const;
