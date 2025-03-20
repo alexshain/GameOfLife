@@ -81,11 +81,11 @@ void GameConfigReader::setConditions(const std::string& condition_str) {
     }
 
     for(size_t i = 0; i < birth_cndtn.size(); ++i) {
-        condition_.birth_condition.insert(static_cast<uint8_t>(birth_cndtn[i]));
+        condition_.birth_condition.insert(std::stoi(birth_cndtn.substr(i, 1)));
     }
 
     for(size_t i = 0; i < survive_cndtn.size(); ++i) {
-        condition_.survival_condition.insert(static_cast<uint8_t>(survive_cndtn[i]));
+        condition_.survival_condition.insert(std::stoi(survive_cndtn.substr(i, 1)));
     }
 }
 

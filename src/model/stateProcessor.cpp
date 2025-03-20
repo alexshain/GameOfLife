@@ -35,9 +35,6 @@ namespace st_prcsr {
                 }
             }
         }
-
-        std::cout << new_alive_cells.size() << std::endl;
-
         state_.setAliveCells(new_alive_cells);
         notifyUpdate();
     }
@@ -90,6 +87,10 @@ namespace st_prcsr {
 
     void StateProcessor::setEvolutionConditions(EvolutionConditions conditions) {
         conditions_ = conditions;
+    }
+
+    EvolutionConditions StateProcessor::getConditions() const {
+        return conditions_;
     }
 
     GameState StateProcessor::getState() const {

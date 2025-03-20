@@ -4,7 +4,6 @@
 #include "gameState.h"
 #include "../view/observer.h"
 #include <memory>
-#include <cinttypes>
 #include <set>
 
 using game_state::GameState;
@@ -27,8 +26,8 @@ public:
 
 namespace st_prcsr {
     struct EvolutionConditions {
-        std::set<uint8_t> birth_condition;
-        std::set<uint8_t> survival_condition;
+        std::set<int> birth_condition;
+        std::set<int> survival_condition;
     };
 
     class StateProcessor: public Observable {
@@ -41,6 +40,7 @@ namespace st_prcsr {
         void setState(GameState state);
         void setEvolutionConditions(EvolutionConditions conditions);
         GameState getState() const;
+        EvolutionConditions getConditions() const;
         void process();
 
     private:
