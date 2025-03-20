@@ -3,6 +3,7 @@
 #include "../include/game_strategy/onlineStrategy.h"
 #include <algorithm>
 #include <memory>
+#include <iostream>
 
 CommandLineParser::CommandLineParser(int argc, char* argv[]) : argv_(argv, argv + argc) {}
 
@@ -26,8 +27,17 @@ void CommandLineParser::initializeContext(GameContext* context) const {
         // значение по умолчанию
         size_t iterations = 100;
         if(iters_index > 0 && argv_.size() > iters_index) {
-            iterations = std::stoi(argv_[out_file_index]);
+            try {
+                iterations = std::stoi(argv_[iters_index]);
+            } catch (const std::invalid_argument&) {
+                std::cerr << "Warning: Invalid value for iterations. The default value was set: iterations = 100" << std::endl;
+                iterations = 100;
+            } catch (const std::out_of_range&) {
+                std::cerr << "Warning: Number is out of range. The default value was set: iterations = 100" << std::endl;
+                iterations = 100;
+            }
         }
+
         std::unique_ptr<OfflineStrategy> offlineStrategy = std::make_unique<OfflineStrategy>(input_file, output_file, iterations);
         context->setStrategy(std::move(offlineStrategy));
     } else {
@@ -36,6 +46,6 @@ void CommandLineParser::initializeContext(GameContext* context) const {
     }
 }
 
-bool CommandLineParser::contains(const std::vector<char*>& argv, std::string str) const {
+bool CommandLineParser::contains(const std::vector<std::string>& argv, std::string str) const {
     return std::find(argv.begin(), argv.end(), str) != argv.end();
 }
