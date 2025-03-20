@@ -11,11 +11,11 @@ private:
     std::string file_path_;
 
 public:
-    GameController(StateProcessor* state_processor, int argc, char* argv[]);
-    void start();
+    GameController(StateProcessor* state_processor, std::string file_path);
+    void start() const;
 
 private:
-    void runProcessing(StateProcessor* processor);
+    void runProcessing(StateProcessor* processor) const;
 };
 
 
