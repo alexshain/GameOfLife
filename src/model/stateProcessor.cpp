@@ -1,6 +1,7 @@
 #include "../../include/model/stateProcessor.h"
 #include <iostream>
 #include <string>
+#include <algorithm>
 
 using game_state::AliveCells;
 using game_state::FieldSize;
@@ -8,7 +9,7 @@ using game_state::FieldSize;
 namespace st_prcsr {
     StateProcessor::StateProcessor() {
         setDefaultState();
-        conditions_.birth_condition = {2};
+        conditions_.birth_condition = {3};
         conditions_.survival_condition = {2, 3};
     }
 
@@ -23,13 +24,14 @@ namespace st_prcsr {
             for(int j = - Nx / 2; j < Nx / 2; ++j) {
                 c.x = j;
                 c.y = i;
-                if(std::find(a_cells.begin(), a_cells.end(), c) != a_cells.end()) {
-                    // сделать так, чтоб использовалось условие из файла
-                    if(getNeighborCount(c) == 2 || getNeighborCount(c) == 3) {
+                if(std::find(a_cells.begin(), a_cells.end(), c) != a_cells.end()) { //условие того, что ячейка жива
+                    std::set<int> s_cndtn = conditions_.survival_condition;
+                    if(std::find(s_cndtn.begin(), s_cndtn.end(), getNeighborCount(c)) != s_cndtn.end()) {
                         new_alive_cells.push_back(c);
                     }
-                } else {
-                    if(getNeighborCount(c) == 3) {
+                } else { // мертвая ячейка
+                    std::set<int> b_cndtn = conditions_.birth_condition;
+                    if(std::find(b_cndtn.begin(), b_cndtn.end(), getNeighborCount(c)) != b_cndtn.end()) {
                         new_alive_cells.push_back(c);
                     }
                 }
