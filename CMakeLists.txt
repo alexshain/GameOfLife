@@ -6,6 +6,8 @@ project(game_of_life LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+include_directories("include")
+
 # Исполняемый файл с указанием исходных файлов
 add_executable(game_of_life 
 			src/main.cpp

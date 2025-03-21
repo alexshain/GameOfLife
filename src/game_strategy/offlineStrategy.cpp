@@ -1,6 +1,6 @@
-#include "../../include/game_strategy/offlineStrategy.h"
-#include "../../include/gameConfigReader.h"
-#include "../../include/model/stateProcessor.h"
+#include "game_strategy/offlineStrategy.h"
+#include "gameConfigReader.h"
+#include "model/stateProcessor.h"
 #include <iostream>
 #include <fstream>
 

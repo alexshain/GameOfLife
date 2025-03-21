@@ -1,8 +1,8 @@
-#include "../../include/controller/gameController.h"
-#include "../../include/gameConfigReader.h"
-#include "../../include/model/gameState.h"
-#include "../../include/model/stateProcessor.h"
-#include "../../include/view/gameView.h"
+#include "controller/gameController.h"
+#include "gameConfigReader.h"
+#include "model/gameState.h"
+#include "model/stateProcessor.h"
+#include "view/gameView.h"
 #include <iostream>
 #include <thread>
 #include <chrono>
@@ -24,7 +24,6 @@ void GameController::runProcessing(StateProcessor* processor) const {
 
 void GameController::start() const {
     GameConfigReader config;
-    //std::string file_path;// = "../examples/Life1.life";
 
     if(config.readFile(file_path_)) {
         GameState g_state(config.getAliveCells(), config.getUniverseName(), config.getFieldSize());

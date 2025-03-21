@@ -1,4 +1,4 @@
-#include "../../include/model/stateProcessor.h"
+#include "model/stateProcessor.h"
 #include <iostream>
 #include <string>
 #include <algorithm>

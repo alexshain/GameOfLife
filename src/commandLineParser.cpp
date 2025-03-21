@@ -1,6 +1,6 @@
-#include "../include/commandLineParser.h"
-#include "../include/game_strategy/offlineStrategy.h"
-#include "../include/game_strategy/onlineStrategy.h"
+#include "commandLineParser.h"
+#include "game_strategy/offlineStrategy.h"
+#include "game_strategy/onlineStrategy.h"
 #include <algorithm>
 #include <memory>
 #include <iostream>
@@ -24,20 +24,20 @@ void CommandLineParser::initializeContext(GameContext* context) const {
             output_file = argv_[out_file_index];
         }
 
-        // значение по умолчанию
-        size_t iterations = 100;
+        size_t iterations;
         if(iters_index > 0 && argv_.size() > iters_index) {
             try {
                 iterations = std::stoi(argv_[iters_index]);
             } catch (const std::invalid_argument&) {
-                std::cerr << "Warning: Invalid value for iterations. The default value was set: iterations = 100" << std::endl;
-                iterations = 100;
+                std::cerr << "Warning: Invalid value for iterations. The default value was set: iterations = 1" << std::endl;
+                // значение по умолчанию
+                iterations = 1;
             } catch (const std::out_of_range&) {
-                std::cerr << "Warning: Number is out of range. The default value was set: iterations = 100" << std::endl;
-                iterations = 100;
+                std::cerr << "Warning: Number is out of range. The default value was set: iterations = 1" << std::endl;
+                // значение по умолчанию
+                iterations = 1;
             }
         }
-
         std::unique_ptr<OfflineStrategy> offlineStrategy = std::make_unique<OfflineStrategy>(input_file, output_file, iterations);
         context->setStrategy(std::move(offlineStrategy));
     } else {

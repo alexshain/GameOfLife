@@ -1,4 +1,4 @@
-#include "../include/gameConfigReader.h"
+#include "gameConfigReader.h"
 #include <fstream>
 #include <iostream>
 #include <stdexcept>

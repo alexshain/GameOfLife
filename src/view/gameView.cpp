@@ -1,13 +1,14 @@
-#include "../../include/view/gameView.h"
+#include "view/gameView.h"
 #include <iostream>
 #include <algorithm>
 
 using game_state::AliveCells;
 using game_state::Cell;
 
+const std::string clear_screen_str = "\033[2J\033[H";
+
 namespace view {
-    GameView::GameView(StateProcessor* state_processor) {
-        state_processor_ = state_processor;
+    GameView::GameView(StateProcessor* state_processor) : state_processor_(state_processor) {
         state_processor_->addObserver(this);
     }
 
@@ -36,6 +37,6 @@ namespace view {
     }
 
     void GameView::clearScreen() {
-        std::cout << "\033[2J\033[H";
+        std::cout << clear_screen_str;
     }
 }

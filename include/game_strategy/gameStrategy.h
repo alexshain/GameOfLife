@@ -1,7 +1,7 @@
 #ifndef GAMESTRATEGY
 #define GAMESTRATEGY
 
-#include "../model/stateProcessor.h"
+#include "model/stateProcessor.h"
 
 using st_prcsr::StateProcessor;
 

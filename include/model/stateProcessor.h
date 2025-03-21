@@ -2,7 +2,7 @@
 #define STATEPROCESSOR
 
 #include "gameState.h"
-#include "../view/observer.h"
+#include "view/observer.h"
 #include <memory>
 #include <set>
 

@@ -1,7 +1,7 @@
 #ifndef GAMECONTROLLER
 #define GAMECONTROLLER
 
-#include "../model/stateProcessor.h"
+#include "model/stateProcessor.h"
 
 using st_prcsr::StateProcessor;
 

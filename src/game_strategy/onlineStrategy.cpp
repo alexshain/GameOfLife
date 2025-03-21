@@ -1,7 +1,7 @@
-#include "../../include/game_strategy/onlineStrategy.h"
-#include "../../include/controller/gameController.h"
-#include "../../include/model/stateProcessor.h"
-#include "../../include/view/gameView.h"
+#include "game_strategy/onlineStrategy.h"
+#include "controller/gameController.h"
+#include "model/stateProcessor.h"
+#include "view/gameView.h"
 #include <iostream>
 
 using view::GameView;

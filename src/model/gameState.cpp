@@ -1,4 +1,4 @@
-#include "../../include/model/gameState.h"
+#include "model/gameState.h"
 
 namespace game_state {
     GameState::GameState(const AliveCells& alive_cells, const std::string& universe_name, FieldSize f_sz) 
