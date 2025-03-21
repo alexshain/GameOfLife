@@ -5,7 +5,7 @@
 
 class OnlineStrategy: public GameStrategy {
 public:
-    OnlineStrategy(std::string input_file);
+    explicit OnlineStrategy(const std::string& input_file);
     void execute() const override;
 };
 

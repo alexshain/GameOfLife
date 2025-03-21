@@ -2,11 +2,11 @@
 #include <iostream>
 
 void GameContext::setStrategy(std::unique_ptr<GameStrategy> strategy) {
-    strategy_ = std::move(strategy);
+    this->strategy = std::move(strategy);
 }
 
 void GameContext::executeStrategy() const {
-    if (strategy_) {
-        strategy_->execute();
+    if (strategy) {
+        strategy->execute();
     }
 }

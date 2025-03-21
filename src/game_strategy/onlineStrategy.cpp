@@ -6,11 +6,11 @@
 
 using view::GameView;
 
-OnlineStrategy::OnlineStrategy(std::string input_file) : GameStrategy(input_file) {}
+OnlineStrategy::OnlineStrategy(const std::string& input_file) : GameStrategy(input_file) {}
 
 void OnlineStrategy::execute() const {
     StateProcessor processor;
     GameView view(&processor);
-    GameController controller(&processor, input_file_);
+    GameController controller(&processor, input_file);
     controller.start();
 }

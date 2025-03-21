@@ -3,7 +3,6 @@
 
 #include "gameState.h"
 #include "view/observer.h"
-#include <memory>
 #include <set>
 
 using game_state::GameState;
@@ -12,6 +11,7 @@ using game_state::Cell;
 class Observable {
 private:
     std::vector<Observer*> observers_;
+
 public:
     void addObserver(Observer* observer) {
         observers_.push_back(observer);
@@ -32,15 +32,15 @@ namespace st_prcsr {
 
     class StateProcessor: public Observable {
     private:
-        GameState state_;
-        EvolutionConditions conditions_;
+        GameState state;
+        EvolutionConditions conditions;
 
     public:
         StateProcessor();
         void setState(GameState state);
         void setEvolutionConditions(EvolutionConditions conditions);
-        GameState getState() const;
-        EvolutionConditions getConditions() const;
+        [[nodiscard]] const GameState& getState() const;
+        [[nodiscard]] const EvolutionConditions& getConditions() const;
         void process();
 
     private:

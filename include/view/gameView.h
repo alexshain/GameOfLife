@@ -14,14 +14,14 @@ namespace view {
     class GameView: public Observer {
     private:
     // переписать на умные указатели
-        StateProcessor* state_processor_;
+        StateProcessor* state_processor;
 
     public:
         explicit GameView(StateProcessor* state_processor);
-        void update();
+        void update() override;
     
     private:
-        void clearScreen();
+        static void clearScreen();
     };
 }
 

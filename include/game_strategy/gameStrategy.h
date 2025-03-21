@@ -7,11 +7,10 @@ using st_prcsr::StateProcessor;
 
 class GameStrategy {
 protected:
-    //StateProcessor* state_processor_;
-    std::string input_file_;
+    std::string input_file;
 
 public:
-    GameStrategy(std::string input_file);
+    explicit GameStrategy(const std::string& input_file);
     virtual void execute() const = 0;
     virtual ~GameStrategy() = default;
 };

@@ -2,11 +2,10 @@
 #define GAMECONTEXT
 
 #include "gameStrategy.h"
-#include <memory>
 
 class GameContext {
 private:
-    std::unique_ptr<GameStrategy> strategy_;
+    std::unique_ptr<GameStrategy> strategy;
 
 public:
     void setStrategy(std::unique_ptr<GameStrategy> strategy);

@@ -4,11 +4,11 @@
 #include "gameStrategy.h"
 
 class OfflineStrategy: public GameStrategy {
-    size_t iterations_;
-    std::string output_file_;
+    size_t iterations;
+    std::string output_file;
 
 public:
-    OfflineStrategy(std::string input_file, std::string output_file, size_t iterations);
+    OfflineStrategy(const std::string& input_file, const std::string& output_file, size_t iterations);
     void execute() const override;
 
 private:
