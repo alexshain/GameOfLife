@@ -39,7 +39,8 @@ void CommandLineParser::initializeContext(GameContext* context) const {
         std::unique_ptr<OfflineStrategy> offlineStrategy = std::make_unique<OfflineStrategy>(input_file, output_file, iterations);
         context->setStrategy(std::move(offlineStrategy));
     } else {
-        std::unique_ptr<OnlineStrategy> onlineStrategy = std::make_unique<OnlineStrategy>(input_file); 
+        //переписать конструктор или как то переделать эту инициализацию
+        std::unique_ptr<OnlineStrategy> onlineStrategy = std::make_unique<OnlineStrategy>(input_file, "out.txt", 1);
         context->setStrategy(std::move(onlineStrategy));
     }
 }

@@ -4,6 +4,7 @@
 #include "model/gameState.h"
 #include "model/stateProcessor.h"
 #include "observer.h"
+#include "model/menuModel.h"
 
 using game_state::AliveCells;
 using game_state::GameState;
@@ -18,10 +19,11 @@ namespace view {
 
     public:
         explicit GameView(StateProcessor* state_processor);
-        void update() override;
+        void update(std::string arg) override;
     
     private:
         static void clearScreen();
+        void show();
     };
 }
 

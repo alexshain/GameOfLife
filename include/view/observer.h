@@ -1,9 +1,11 @@
 #ifndef OBSERVER
 #define OBSERVER
 
+#include <string>
+
 class Observer {
     public:
-        virtual void update() = 0;
+        virtual void update(std::string arg) = 0;
         virtual ~Observer() = default;
     };
 

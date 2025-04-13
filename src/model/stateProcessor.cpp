@@ -10,9 +10,10 @@ namespace st_prcsr {
         setDefaultState();
         conditions.birth_condition = {3};
         conditions.survival_condition = {2, 3};
+        curr_iter = 0;
     }
 
-    void StateProcessor::process() {
+    size_t StateProcessor::process() {
         int nx = state.getFieldSize().nx;
         int ny = state.getFieldSize().ny;
 
@@ -37,7 +38,8 @@ namespace st_prcsr {
             }
         }
         state.setAliveCells(new_alive_cells);
-        notifyUpdate();
+        notifyUpdate(std::to_string(curr_iter));
+        return curr_iter++;
     }
 
     int StateProcessor::getNeighborCount(Cell current_cell) {

@@ -14,8 +14,10 @@ add_executable(game_of_life
 			src/gameConfigReader.cpp
 			src/commandLineParser.cpp
 			src/model/gameState.cpp
+			src/model/menuModel.cpp
 			src/model/stateProcessor.cpp
 			src/view/gameView.cpp 
+			src/view/menuView.cpp
 			src/controller/gameController.cpp
 			src/game_strategy/gameContext.cpp
 			src/game_strategy/gameStrategy.cpp
