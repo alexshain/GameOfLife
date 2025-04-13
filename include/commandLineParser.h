@@ -6,14 +6,14 @@
 
 class CommandLineParser {
 private:
-    std::vector<std::string> argv_;
+    std::vector<std::string> argv;
 
 public:
     CommandLineParser(int argc, char* argv[]);
     void initializeContext(GameContext* context) const;
 
 private:
-    bool contains(const std::vector<std::string>& argv, std::string str) const;
+    static bool contains(const std::vector<std::string>& argv, const std::string& str) ;
 };
 
 #endif //COMMANDLINEPARSER

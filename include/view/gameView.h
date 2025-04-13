@@ -1,9 +1,10 @@
 #ifndef GAMEVIEW
 #define GAMEVIEW
 
-#include "../model/gameState.h"
-#include "../model/stateProcessor.h"
+#include "model/gameState.h"
+#include "model/stateProcessor.h"
 #include "observer.h"
+#include "model/menuModel.h"
 
 using game_state::AliveCells;
 using game_state::GameState;
@@ -13,14 +14,16 @@ using st_prcsr::StateProcessor;
 namespace view {
     class GameView: public Observer {
     private:
-        StateProcessor* state_processor_;
+    // переписать на умные указатели
+        StateProcessor* state_processor;
 
     public:
-        GameView(StateProcessor* state_processor);
-        void update();
+        explicit GameView(StateProcessor* state_processor);
+        void update(std::string arg) override;
     
     private:
-        void clearScreen();
+        static void clearScreen();
+        void show();
     };
 }
 

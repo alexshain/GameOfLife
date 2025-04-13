@@ -1,36 +1,56 @@
-#include "../../include/controller/gameController.h"
-#include "../../include/gameConfigReader.h"
-#include "../../include/model/gameState.h"
-#include "../../include/model/stateProcessor.h"
-#include "../../include/view/gameView.h"
-#include <iostream>
+#include "controller/gameController.h"
+#include "gameConfigReader.h"
+#include "model/gameState.h"
+#include "model/stateProcessor.h"
+#include "view/gameView.h"
 #include <thread>
+#include <iostream>
 #include <chrono>
 
 using game_state::GameState;
 using view::GameView;
 using st_prcsr::StateProcessor;
 
-GameController::GameController(StateProcessor* state_processor, std::string file_path)
-    : state_processor_(state_processor)
-    , file_path_(file_path) {}
+GameController::GameController(StateProcessor* state_processor, MenuModel* m_model, const std::string& file_path)
+    : state_processor(state_processor)
+    , m_model(m_model)
+    , file_path(file_path) {
+        iterations = 1;
+    }
 
-void GameController::runProcessing(StateProcessor* processor) const {
-    while (true) {
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-        processor->process();
+void GameController::runProcessing() const {
+    while (state_processor->process() < m_model->getIterations()) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
+    
+}
+
+void callInputStream(std::string& line) {
+    std::cin >> line;
+    if(line == "exit") {
+        std::exit(0);
     }
 }
 
 void GameController::start() const {
-    GameConfigReader config;
-    //std::string file_path;// = "../examples/Life1.life";
+    m_model->call();
+    std::string output_file;
+    callInputStream(output_file);
+    m_model->setOutputFile(output_file);
 
-    if(config.readFile(file_path_)) {
+    //обработать если ввели не число
+    std::string n_iters;
+    callInputStream(n_iters);
+    m_model->setIterations(std::stoi(n_iters));
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+
+    GameConfigReader config;
+
+    if(config.readFile(file_path)) {
         GameState g_state(config.getAliveCells(), config.getUniverseName(), config.getFieldSize());
-        state_processor_->setState(g_state);
-        state_processor_->setEvolutionConditions(config.getEvolutionConditions());
+        state_processor->setState(g_state);
+        state_processor->setEvolutionConditions(config.getEvolutionConditions());
     }
 
-    runProcessing(state_processor_);
+    runProcessing();
 }

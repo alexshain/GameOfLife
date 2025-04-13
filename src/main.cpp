@@ -1,10 +1,6 @@
-//посмотреть, можно ли избежать этого двоеточия
-#include "../include/controller/gameController.h"
-#include "../include/model/stateProcessor.h"
-#include "../include/view/gameView.h"
-#include "../include/commandLineParser.h"
-#include "../include/game_strategy/gameContext.h"
-#include <iostream>
+#include "view/gameView.h"
+#include "commandLineParser.h"
+#include "game_strategy/gameContext.h"
 
 using view::GameView;
 

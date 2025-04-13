@@ -1,30 +1,35 @@
-#include "../../include/view/gameView.h"
+#include "view/gameView.h"
 #include <iostream>
-#include <algorithm>
 
 using game_state::AliveCells;
 using game_state::Cell;
 
+const std::string clear_screen_str = "\033[2J\033[H";
+
 namespace view {
-    GameView::GameView(StateProcessor* state_processor) {
-        state_processor_ = state_processor;
-        state_processor_->addObserver(this);
+    GameView::GameView(StateProcessor* state_processor) 
+    : state_processor(state_processor)
+    {
+        this->state_processor->addObserver(this);
     }
 
-    void GameView::update() {
+    void GameView::update(std::string arg) {
         clearScreen();
-        GameState state = state_processor_->getState();
-        int Nx = state.getFieldSize().Nx;
-        int Ny = state.getFieldSize().Ny;
+        show();
+        std::cout << "number of iteration: " << arg << std::endl;
+    }
+
+    void GameView::show() {
+        GameState state = state_processor->getState();
+        int Nx = state.getFieldSize().nx;
+        int Ny = state.getFieldSize().ny;
 
         std::cout << "--------- " << state.getUniverseName() << " ---------" << std::endl;
 
         AliveCells a_cells = state.getAliveCells();
         for(int i = - Ny / 2; i < Ny / 2; ++i) {
             for(int j = - Nx / 2; j < Nx / 2; ++j) {
-                Cell c;
-                c.x = j;
-                c.y = i;
+                Cell c{j, i};
                 if(std::find(a_cells.begin(), a_cells.end(), c) != a_cells.end()) {
                     std::cout << " * ";
                 } else {
@@ -36,6 +41,6 @@ namespace view {
     }
 
     void GameView::clearScreen() {
-        std::cout << "\033[2J\033[H";
+        std::cout << clear_screen_str;
     }
 }

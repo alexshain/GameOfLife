@@ -1,11 +1,11 @@
-#include "../include/gameConfigReader.h"
+#include "gameConfigReader.h"
 #include <fstream>
 #include <iostream>
-#include <stdexcept>
 #include <vector>
 #include <string>
+#include <sstream>
 
-bool GameConfigReader::readFile(std::filesystem::path file_path) {
+bool GameConfigReader::readFile(const std::filesystem::path& file_path) {
     std::ifstream file(file_path);
 
     if(!file.is_open()) {
@@ -35,16 +35,16 @@ std::vector<std::string> GameConfigReader::split(const std::string& str, char de
 
 void GameConfigReader::lineProcessor(const std::vector<std::string>& words) {
     if(words[0] == "#N") {
-        universe_name_ = words[1];
+        universe_name = words[1];
     } else if(words[0] == "#R") {
         setConditions(words[1]);
     } else if(words[0] == "#S") {
         setSize(words[1]);
     } else if(isInteger(words[0]) && isInteger(words[1])) {
-        Cell alive_cell;
-        alive_cell.x = std::stoi(words[0]);
-        alive_cell.y = std::stoi(words[1]);
-        a_cells_.push_back(alive_cell);
+        int x = std::stoi(words[0]);
+        int y = std::stoi(words[1]);
+        Cell alive_cell{x, y};
+        a_cells.push_back(alive_cell);
     }
 }
 
@@ -52,7 +52,7 @@ bool GameConfigReader::isInteger(const std::string& str) {
     if (str.empty()) return false;
 
     // Check first char
-    size_t start = (str[0] == '-' || str[0] == '+') ? 1 : 0;
+    int start = (str[0] == '-' || str[0] == '+') ? 1 : 0;
     return start < str.size() && std::all_of(str.begin() + start, str.end(), ::isdigit);
 }
 
@@ -81,11 +81,11 @@ void GameConfigReader::setConditions(const std::string& condition_str) {
     }
 
     for(size_t i = 0; i < birth_cndtn.size(); ++i) {
-        condition_.birth_condition.insert(std::stoi(birth_cndtn.substr(i, 1)));
+        condition.birth_condition.insert(std::stoi(birth_cndtn.substr(i, 1)));
     }
 
     for(size_t i = 0; i < survive_cndtn.size(); ++i) {
-        condition_.survival_condition.insert(std::stoi(survive_cndtn.substr(i, 1)));
+        condition.survival_condition.insert(std::stoi(survive_cndtn.substr(i, 1)));
     }
 }
 
@@ -98,30 +98,30 @@ void GameConfigReader::setSize(const std::string& size_str) {
 
     //убрать дублирование?
     if (start_x != std::string::npos && end_x != std::string::npos && start_x + 1 < end_x) {
-        f_size_.Nx = std::stoi(size_str.substr(start_x + 1, end_x - start_x - 1)); 
+        f_size.nx = std::stoi(size_str.substr(start_x + 1, end_x - start_x - 1));
     } else {
         std::cout << "smth." << std::endl;
     }
 
     if (start_y != std::string::npos) {
-        f_size_.Ny = std::stoi(size_str.substr(start_y + 1)); 
+        f_size.ny = std::stoi(size_str.substr(start_y + 1));
     } else {
         std::cout << "smth." << std::endl;
     }
 }
 
-EvolutionConditions GameConfigReader::getEvolutionConditions() const {
-    return condition_;
+const EvolutionConditions& GameConfigReader::getEvolutionConditions() const {
+    return condition;
 }
 
-AliveCells GameConfigReader::getAliveCells() const {
-    return a_cells_;
+const AliveCells& GameConfigReader::getAliveCells() const {
+    return a_cells;
 }
 
-FieldSize GameConfigReader::getFieldSize() const {
-    return f_size_;
+const FieldSize& GameConfigReader::getFieldSize() const {
+    return f_size;
 }
 
-std::string GameConfigReader::getUniverseName() const {
-    return universe_name_;
+const std::string& GameConfigReader::getUniverseName() const {
+    return universe_name;
 }

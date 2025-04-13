@@ -2,27 +2,12 @@
 #define STATEPROCESSOR
 
 #include "gameState.h"
-#include "../view/observer.h"
-#include <memory>
+#include "observable.h"
 #include <set>
 
 using game_state::GameState;
 using game_state::Cell;
 
-class Observable {
-private:
-    std::vector<Observer*> observers_;
-public:
-    void addObserver(Observer* observer) {
-        observers_.push_back(observer);
-    }
-
-    void notifyUpdate() {
-        for(const auto& observer: observers_) {
-            observer->update();
-        }
-    }
-};
 
 namespace st_prcsr {
     struct EvolutionConditions {
@@ -32,16 +17,17 @@ namespace st_prcsr {
 
     class StateProcessor: public Observable {
     private:
-        GameState state_;
-        EvolutionConditions conditions_;
+        GameState state;
+        EvolutionConditions conditions;
+        size_t curr_iter;
 
     public:
         StateProcessor();
         void setState(GameState state);
         void setEvolutionConditions(EvolutionConditions conditions);
-        GameState getState() const;
-        EvolutionConditions getConditions() const;
-        void process();
+        [[nodiscard]] const GameState& getState() const;
+        [[nodiscard]] const EvolutionConditions& getConditions() const;
+        size_t process();
 
     private:
         void setDefaultState();

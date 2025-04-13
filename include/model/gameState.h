@@ -14,25 +14,25 @@ namespace game_state {
     };
 
     struct FieldSize {
-        int Nx;
-        int Ny;
+        int nx;
+        int ny;
     };
 
     using AliveCells = std::vector<Cell>;
 
     class GameState {
     private:
-        AliveCells alive_cells_;
-        std::string universe_name_;
-        FieldSize f_sz_;
+        AliveCells alive_cells;
+        std::string universe_name;
+        FieldSize f_sz{};
 
     public:
         GameState() = default;
         GameState(const AliveCells& alive_cells, const std::string& universe_name, FieldSize f_sz);
         void setAliveCells(const AliveCells& new_alive_cells);
-        AliveCells getAliveCells() const;
-        std::string getUniverseName() const;
-        FieldSize getFieldSize() const;
+        [[nodiscard]] const AliveCells& getAliveCells() const;
+        [[nodiscard]] const std::string& getUniverseName() const;
+        [[nodiscard]] const FieldSize& getFieldSize() const;
     };
 }
 
